@@ -12,12 +12,10 @@ class SignupForm extends React.Component {
             this.props.setLastName(value);
         }
 
-        // const username = { [name] : value } 
     }
 
     render() {
 
-        // console.log(this.props.getName.firstName, this.props.getName.lastName)
         return(
             <div>
                 <div>

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 // the latest version
 import ApolloClient from "apollo-boost";
+import { ApolloProvider } from 'react-apollo';
 
 // still old version
 // import ApolloClient from 'apollo-client';
@@ -10,8 +11,6 @@ import ApolloClient from "apollo-boost";
 
 // old version
 // import ApolloClient, { createNetworkInterface } from 'apollo-client';
-
-import { ApolloProvider } from 'react-apollo';
 
 import App from './components/App';
 
@@ -38,34 +37,24 @@ import App from './components/App';
 // **********
 // Setup ApolloClient in the client side.
 const client = new ApolloClient({
-    uri: 'http://localhost:4000/graphql',
+    // when using cors in the backend, but not working...
+    // uri: 'http://localhost:4000/graphql',
+    uri: '/graphql'
+    
 
     // must set this up to use cookie!!!!!
     // default is 'same-origin
     // This option can be used to indicate 
     //  whether the user agent should send cookies with requests.
-    credentials: 'same-origin'
+    // credentials: 'same-origin',
 
-    // Let's see how it works!!
-    // dataIdFromObject: o => o.id
+    // // Let's see how it works!!
+   // dataIdFromObject: o => o.id // need to find alternatives
 });
-
-
-// const Root = () => {
-//     return(
-//         <ApolloProvider client= { client }>
-//             <BrowserRouter>
-//                 <Route path="/" component = { App } />
-//                 <Route path="/signup" component={ SignupForm } />
-//             </BrowserRouter>
-//         </ApolloProvider>
-//     );
-// } 
 
 ReactDOM.render(
     <ApolloProvider client= { client }>
         <App />
-    </ApolloProvider>, 
+    </ApolloProvider>,
     document.getElementById('root')
 );
-
