@@ -1,15 +1,15 @@
 /*global google*/
 import React from 'react';
 import { withGoogleMap, GoogleMap, withScriptjs, InfoWindow, Marker } from 'react-google-maps';
-import Geocode from 'react-geocode';
+// import Geocode from 'react-geocode';
 // import Autocomplete from 'react-google-autocomplete';
 import { Google_API_Key } from '../../tempkeys';
 import { compose, withProps, withStateHandlers } from 'recompose';
 const { MarkerWithLabel } = require("react-google-maps/lib/components/addons/MarkerWithLabel");
 
-const { InfoBox } = require("react-google-maps/lib/components/addons/InfoBox");
-Geocode.setApiKey(Google_API_Key);
-Geocode.enableDebug();
+// const { InfoBox } = require("react-google-maps/lib/components/addons/InfoBox");
+// Geocode.setApiKey(Google_API_Key);
+// Geocode.enableDebug();
 
 const MyMapComponent = compose(
     withProps({
@@ -22,24 +22,31 @@ const MyMapComponent = compose(
     withGoogleMap
   )(props => {
     // console.log(props.coords)
+    const { lat } = props.coords; 
+    const a  = 'aaaa';
+    const b = 'bbb';
+    const c = 'ccc';
     if(!props.coords.lat || !props.coords.lng) return <div></div>;
     return (<GoogleMap
       defaultZoom={ 15 }
       defaultCenter={ props.coords }
     >
-      { props.isMarkerShown && <Marker position={ props.coords } onClick={ props.onMarkerClick } />}
+      { props.isMarkerShown && <Marker position={ props.coords } onClick={ () => { 
+        const a = 'aaa'
+        props.onMarkerClick(a) } } />}
 
       <MarkerWithLabel
-      onClick={ props.onMarkerClick }
+      onClick={ (id) => { const b = 'bbb'; props.onMarkerClick(b) } }
       position={ { lat: 43.4800, lng:  -79.71000 } }
       labelAnchor={new google.maps.Point(0, 0)}
       labelStyle={{backgroundColor: "yellow", fontSize: "10px", padding: "5px"}}
     >
       <div>Hello There!</div>
     </MarkerWithLabel>
+
     <MarkerWithLabel
-    onClick={ props.onMarkerClick }
-    position={ { lat: 43.46970, lng:  -79.706700 } }
+    onClick={ () => { const c = 'ccc'; props.onMarkerClick(c)} }
+    position={ { lat: 43.45000, lng:  -79.705700 } }
     labelAnchor={new google.maps.Point(0, 0)}
     labelStyle={{backgroundColor: "yellow", fontSize: "10px", padding: "5px"}}
   >
@@ -67,8 +74,8 @@ class SampleMap extends React.PureComponent {
         }, 3000)
       }
     
-      handleMarkerClick = (e) => {
-        console.log(e)
+      handleMarkerClick = (id) => {
+        console.log(id)
         this.setState({ isMarkerShown: false })
         this.delayedShowMarker()
       }

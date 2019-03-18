@@ -69,8 +69,6 @@ class SalesMap extends React.Component {
     position={{lat: 43.4682480, lng: -79.706321}} />
   <Marker />
 
- 
-
     <InfoWindow
       marker={this.state.activeMarker}
       visible={this.state.showingInfoWindow}
