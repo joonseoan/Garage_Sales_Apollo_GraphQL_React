@@ -1,92 +1,75 @@
 import React from 'react';
-import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
-import { Google_API_Key } from '../../tempkeys';
+import getAllCoordinates from '../../queries/getAllCoordinates';
+import { graphql } from 'react-apollo';
 
-// change it onto css file......
-const mapStyle = {
-  width: '50%',
-  height: '50%',
-  position: 'relative'
-};
+import GoogleMapping from './GoogleMapping';
 
-class SalesMap extends React.Component {
+class SalesMap extends React.PureComponent {
 
-  state = {
-    showInfoWindow: false,
-    activeMarker: {},
-    selectedPlace: {}
-  }
-
-  onMarkerClick = (props, marker, e) => {
-
-    console.log('props in onMarkerClick: ', props)
-    console.log('marker: ', marker)
-    this.setState({
-      selectedPlace: props, // contents in the marker
-      activeMarker: marker, // infowindow
-      showingInfoWindow: true
-    });
-  }
-
-  onClose = props => {
-
-    console.log('props in oncLOSE: ', props) // undefined
-    if (this.state.showingInfoWindow) {
-      this.setState({
-        showingInfoWindow: false,
-        activeMarker: null
-      });
+    state = { 
+      isMarkerShown: false,
+      myLocation: {
+        lat: null,
+        lng: null,
+        errorMessage: ''
+      } 
     }
-  };
+  
+    componentDidMount() {
 
-  render() {
-
-    console.log(this.props.coords)
-
-    console.log(this.state.selectedPlace.name)
-    if(!this.props.coords.lat || !this.props.coords.lng) return <div />;
-    return(
-      <Map 
-        google={ this.props.google }
-        zoom={ 16 }
-        style={ mapStyle }
-        initialCenter={{
-          lat: this.props.coords.lat,
-          lng: this.props.coords.lng
-        }}
-      >
-      <Marker
-        title={'The marker`s title will appear as a tooltip.'}
-
-        onClick={this.onMarkerClick}
-        name={'Oakville Garage Sales Area'}
-      />
-      
-      <Marker
-      onClick={this.onMarkerClick}
-      title={'The marker`s title will appear as a tooltip.'}
-    name={'Dolores park'}
-    position={{lat: 43.4682480, lng: -79.706321}} />
-  <Marker />
-
-    <InfoWindow
-      marker={this.state.activeMarker}
-      visible={this.state.showingInfoWindow}
-      onClose={this.onClose}
-    >
-      <div>
-        <h4>{ this.state.selectedPlace.name || 'loading...' }</h4>
-      </div>
-    </InfoWindow>
-      
-      </Map>
+      window.navigator.geolocation.getCurrentPosition(
+        position => {
+            const { latitude, longitude } = position.coords;
+            this.setState({
+                myLocation : { 
+                  ...this.state.myLocation,
+                  lat: latitude,
+                  lng: longitude
+                }
+            });
+        },
+        err => {
+            this.setState({ myLocation: { 
+                  ...this.state.myLocation, 
+                  errorMessage: err.message 
+                }
+            });
+        }
     );
-  }
 
+      console.log()
+      this.delayedShowMarker()
+    };
+  
+    delayedShowMarker = () => {
+      setTimeout(() => {
+        this.setState({ isMarkerShown: true });
+      }, 3000)
+    };
+  
+    handleMarkerClick = (id) => {
+      console.log(id)
+      this.setState({ isMarkerShown: false });
+      this.delayedShowMarker();
+    };
+  
+    render() {
+      
+     if(this.props.data.loading || !this.state.myLocation.lat || !this.state.myLocation.lng ) return <div />;
+      
+      return (
+          <div>
+            <GoogleMapping
+              myLocation = { this.state.myLocation }
+              isMarkerShown = { this.state.isMarkerShown }
+              onMarkerClick = { this.handleMarkerClick }
+              coords = { this.props.data.coords }
+            />
+          </div>
+      );
+
+    }
 }
 
-export default GoogleApiWrapper(
-  (props) =>({
-    apiKey: Google_API_Key
-  }) 
-)(SalesMap);
+export default graphql(getAllCoordinates)(SalesMap);
+// export default SampleMap;

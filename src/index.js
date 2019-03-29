@@ -39,9 +39,10 @@ import App from './components/App';
 const client = new ApolloClient({
     // when using cors in the backend, but not working...
     // uri: 'http://localhost:4000/graphql',
+    
+    // when using proxy ===> it works but it generated the micellinous error.
     uri: '/graphql'
     
-
     // must set this up to use cookie!!!!!
     // default is 'same-origin
     // This option can be used to indicate 

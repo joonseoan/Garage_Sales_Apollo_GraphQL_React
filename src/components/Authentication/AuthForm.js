@@ -2,95 +2,77 @@ import React  from 'react';
 import { graphql, compose } from 'react-apollo';
 
 import SignupForm from './SignupForm';
+import LoginForm from './LoginForm';
+
 import SignupMutation from '../../mutations/Signup';
 import LoginMutation from '../../mutations/Login';
 import currentUser from '../../queries/currentUser';
 
 class AuthForm extends React.Component {
 
-    state = { 
+    state = {
         email: '',
         password: '',
+        confirmPassword: '',
         firstName: '',
         lastName: '',
+        alias: '',
         errors: []
     }
 
     handleOnChange = (e) => {
-        const { name, value} = e.target;
+        const { name, value } = e.target;
         this.setState({ [name] : value });
     }
 
     handleSubmit = (e) => {
-
-        const { email, password } = this.state;
+      
         e.preventDefault();
 
         if(this.props.location.state === 'signup') {
-
-            // no return!!!!
-            this.props.signup({ 
-                variables: this.state,
+            return this.props.signup({ 
+                variables: { ...this.state, errors: undefined },
                 refetchQueries: [{ query: currentUser }] 
-            }).catch(res => {
+            })
+            .catch(res => {
                 const errors = res.graphQLErrors.map(error => error.message);
                 this.setState({ errors });
-            })
-
-            return;
+            })       
         }
-        
+
+        const { email, password } = this.state;
         this.props.login({ 
             variables: { email, password },
             refetchQueries: [{ query: currentUser }] 
-        }).catch(res => {
+        })
+        .catch(res => {
             const errors = res.graphQLErrors.map(error => error.message);
             this.setState({ errors });
-        })
-
+        });
     }
     
     render() {
 
         const signupForm = (
             <SignupForm 
-                setFirstName = { firstName => { this.setState({ firstName }); }}
-                setLastName = { lastName => { this.setState({ lastName }); }}
-                getFirstName = { this.state.firstName }
-                getLastName = { this.state.lastName }
+                setOnChange = { this.handleOnChange }
+                getValue = { this.state }
             />
         );
 
         return(
             <div>
                 <form onSubmit={ this.handleSubmit }>
-                    <div>
-                        <label>Email Address: </label>
-                        <input 
-                            type="text" 
-                            name="email" 
-                            autoFocus
-                            placeholder="abc@abc.com"
-                            value = { this.state.email }
-                            onChange={ this.handleOnChange }
-                        />
-                    </div>
-                    <div>
-                        <label>Password (at least 8 characters): </label>
-                        <input 
-                            type="password" 
-                            name="password"
-                            value={ this.state.password }
-                            onChange={ this.handleOnChange } 
-                        />
-                    </div>
+                    <LoginForm 
+                        setOnChange = { this.handleOnChange }
+                        getValue = {{ email: this.state.email, password: this.state.password }}
+                    />
                     { this.props.location.state === 'signup' ? signupForm : null }
-                    <div>Error Message: under construction !</div>
+                    <div>Error Message: { this.state.errors.message }</div>
                     <button type="submit">Be a Garage Sales member!</button>
                 </form>
             </div>
         );    
-
     }
 
     componentDidUpdate(prevProps) {
@@ -99,12 +81,6 @@ class AuthForm extends React.Component {
         }
     }
 } 
-
-// export default graphql(SignupMutation)(
-//     graphql(currentUser)(
-//         graphql(LoginMutation)(AuthForm)
-//     )
-// );
 
 export default compose(
     graphql(currentUser),

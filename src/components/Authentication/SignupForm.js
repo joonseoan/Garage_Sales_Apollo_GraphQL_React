@@ -1,44 +1,45 @@
 import React from 'react';
 
-class SignupForm extends React.Component {
-
-    handleOnChange = (e) => {
-        const { name, value } = e.target;
-
-        if(name === 'firstName') {
-
-            this.props.setFirstName(value);
-        } else {
-            this.props.setLastName(value);
-        }
-
-    }
-
-    render() {
-
-        return(
+export default (props) => {
+    
+    return(
+        <div>
             <div>
-                <div>
-                    <label>Your FirstName: </label>
-                    <input 
-                        type="text" 
-                        name="firstName"
-                        value={ this.props.getFirstName } 
-                        onChange={ this.handleOnChange }
-                    />
-                </div>
-                <div>
-                    <label>Your LastName: </label>
-                    <input 
-                        type="text" 
-                        name="lastName"
-                        value={ this.props.getLastName }
-                        onChange={ this.handleOnChange }                        
-                    />
-                </div>
+                <label>Confirm Password: </label>
+                <input
+                    type="password" 
+                    name="confirmPassword"
+                    value={ props.getValue.confirmPassword } 
+                    onChange={ (e) => { props.setOnChange(e) } }
+                />
             </div>
-        );
-    }
+            <div>
+                <label>Your FirstName: </label>
+                <input
+                    type="text" 
+                    name="firstName"
+                    value={ props.getValue.firstName } 
+                    onChange={ (e) => { props.setOnChange(e) } }
+                />
+            </div>
+            <div>
+                <label>Your LastName: </label>
+                <input 
+                    type="text" 
+                    name="lastName"
+                    value={ props.getValue.lastName } 
+                    onChange={ (e) => { props.setOnChange(e) } }                       
+                />
+            </div>
+            <div>
+                <label>Alias (Otherwise, your username is "User"): </label>
+                <input 
+                    type="text" 
+                    name="alias"
+                    value={ props.getValue.alias } 
+                    onChange={ (e) => { props.setOnChange(e) } }                 
+                />
+            </div>
+        </div>
+    );
 }
-
-export default SignupForm;
