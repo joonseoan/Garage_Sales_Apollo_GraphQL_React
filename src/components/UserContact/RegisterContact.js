@@ -21,7 +21,7 @@ class RegisterContact extends React.Component {
         //     id: ''
         // }
 
-    }
+    };
 
     // Unable to get this.props.data.user!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
     //  because this.props.data.loading === true!!!!!!!!!!!!!!!!!!!!!!!!!!!!

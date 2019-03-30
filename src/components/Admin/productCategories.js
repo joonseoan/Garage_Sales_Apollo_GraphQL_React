@@ -1,0 +1,16 @@
+export default [
+    { category: 'Clothing & Fashion',
+        id: 'CF' }, 
+    { category: 'Toys',
+        id: 'To' },
+        { category: 'Electronics',
+        id: 'EL' },
+        { category: 'Furniture',
+        id: 'FU' },
+        { category: 'Books',
+        id: 'BO' },
+        { category: 'Craft',
+        id: 'CR' },
+        { category: 'Others',
+        id: 'OT' },
+];

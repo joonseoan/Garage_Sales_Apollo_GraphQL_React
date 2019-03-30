@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 
 // the latest version
 import ApolloClient from "apollo-boost";
@@ -13,6 +15,7 @@ import { ApolloProvider } from 'react-apollo';
 // import ApolloClient, { createNetworkInterface } from 'apollo-client';
 
 import App from './components/App';
+import reducers from './reducers';
 
 // still old  version
 // const apolloClient = new ApolloClient({
@@ -53,9 +56,13 @@ const client = new ApolloClient({
    // dataIdFromObject: o => o.id // need to find alternatives
 });
 
+const store = createStore(reducers);
+
 ReactDOM.render(
     <ApolloProvider client= { client }>
-        <App />
+        <Provider store = { store }>
+            <App />
+        </Provider>
     </ApolloProvider>,
     document.getElementById('root')
 );

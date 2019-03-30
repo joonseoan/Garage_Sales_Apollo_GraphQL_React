@@ -3,8 +3,9 @@ import { Route, BrowserRouter } from 'react-router-dom';
 
 import Header from './Header';
 import AuthForm from './Authentication/AuthForm';
+import ProductAdminForm from './Admin/ProductAdminForm';
 import SampleMap from './Map/SalesMap';
-import RegisterContact from './Admin/RegisterContact';
+import RegisterContact from './UserContact/RegisterContact';
 
 const App = () => {
 
@@ -12,18 +13,22 @@ const App = () => {
 
     return(
         <div>
-            
             <BrowserRouter>
                 <div>
                     <Header />
-                    {/* <SalesMap coords={ { lat: this.state.lat, lng: this.state.lng } } /> */}
+                    { /* <SalesMap coords={ { lat: this.state.lat, lng: this.state.lng } } /> */ }
+
+                    {/* must change it to redux form */}
                     <Route path="/auth" exact component={ AuthForm } />
+                    <Route path="/productAdmin" exact component = { ProductAdminForm } />
                 </div>
             </BrowserRouter>
             
-            <RegisterContact />
-
-            <SampleMap />
+            {/* 
+                <RegisterContact />
+    
+                <SampleMap />
+            */}
             
         </div>
         
