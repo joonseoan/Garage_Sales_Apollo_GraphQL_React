@@ -1,16 +1,16 @@
 import React from 'react';
 
-import ProductAdminGroup from './ProductAdminGroup';
+import GroupProductDetails from './GroupProductDetails';
 
-class ProductAdminForm extends React.Component {
+class SubmitProductForm extends React.Component {
     render() {
         return(
             <form>
-                <ProductAdminGroup />
+                <GroupProductDetails />
                 <button type="submit">Register products</button>
             </form>
         );
     }
 }
 
-export default ProductAdminForm;
+export default SubmitProductForm;

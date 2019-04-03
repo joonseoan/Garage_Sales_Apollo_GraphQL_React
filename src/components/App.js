@@ -3,7 +3,7 @@ import { Route, BrowserRouter } from 'react-router-dom';
 
 import Header from './Header';
 import AuthForm from './Authentication/AuthForm';
-import ProductAdminForm from './Admin/ProductAdminForm';
+import SubmitProductForm from './Admin/SubmitProductForm';
 import SampleMap from './Map/SalesMap';
 import RegisterContact from './UserContact/RegisterContact';
 
@@ -20,7 +20,7 @@ const App = () => {
 
                     {/* must change it to redux form */}
                     <Route path="/auth" exact component={ AuthForm } />
-                    <Route path="/productAdmin" exact component = { ProductAdminForm } />
+                    <Route path="/productAdmin" exact component = { SubmitProductForm } />
                 </div>
             </BrowserRouter>
             

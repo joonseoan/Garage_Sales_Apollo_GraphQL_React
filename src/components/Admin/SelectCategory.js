@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import productCategories from './productCategories';
 
-class CategoryAdmin extends React.Component {
+class SelectCategory extends React.Component {
 
     state = {
         selectedCategory: ''
@@ -37,4 +37,4 @@ class CategoryAdmin extends React.Component {
     }
 }
 
-export default CategoryAdmin;
+export default SelectCategory;
