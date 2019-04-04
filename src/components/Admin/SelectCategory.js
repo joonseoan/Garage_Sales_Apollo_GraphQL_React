@@ -3,38 +3,31 @@ import _ from 'lodash';
 
 import productCategories from './productCategories';
 
-class SelectCategory extends React.Component {
+const SelectCategory = props => {
 
-    state = {
-        selectedCategory: ''
-    }
-
-    handleSelect = (id) => {
-        this.setState({ selectedCategory: id });
-    }
-
-    renderCategories = () => {
+    const renderCategories = () => {
+        // must build active css based on props.getValue!!!!
         return _.map(productCategories, categoryItem => {
+            const { name, value } = categoryItem;
             return (
                 <div 
-                    onClick={ () => { this.handleSelect(categoryItem.id) } } 
-                    key={ categoryItem.id }>
-                    {categoryItem.category}
+                    onClick={ () => { props.setValue(value) } } 
+                    key={ value }>
+                    { name }
                 </div>
             );
         });
     }
 
-    render() {
-        return (
+    return (
+        <div>
+            <button type="button">Select Product Category</button>
             <div>
-                <button type="button">Select Product Category</button>
-                <div>
-                    { this.renderCategories() }
-                </div>
+                { renderCategories() }
             </div>
-        );
-    }
+        </div>
+    );
+
 }
 
 export default SelectCategory;

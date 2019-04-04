@@ -1,10 +1,21 @@
 import React from 'react';
 
-export default () => {
+const UploadImageFile = (props) => {
+    //console.log(props.getValue.name)
+
     return (
-        <div>
+        <React.Fragment>
             <label htmlFor="imageFile" />
-            <input type="file" name="imagePath" id="imageFile" />
-        </div>
+            <input 
+                type="file" 
+                name="imagePath" 
+                id="imageFile" 
+                // value={ props.getValue }
+                onChange={ (e) => { props.setValue(null, e) } } 
+            />
+        </React.Fragment>
     );
+    
 }
+
+export default UploadImageFile;
