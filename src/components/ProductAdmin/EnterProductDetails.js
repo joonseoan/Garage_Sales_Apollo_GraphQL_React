@@ -4,20 +4,20 @@ import UploadImageFile from './UploadImageFile';
 const EnterProductDetails = props => {
 
     const INPUTS = [ 
-        { label: 'NAME', inputName: "name", value: props.getValue.name },
-        { label: 'BRAND', inputName: "brand", value: props.getValue.barnd },
-        { label: 'MODEL', inputName: "model", value: props.getValue.model },
-        { label: 'PRICE', inputName: "price", value: props.getValue.price }
+        { label: 'NAME', inputName: "name", value: props.getValues.name },
+        { label: 'BRAND', inputName: "brand", value: props.getValues.barnd },
+        { label: 'MODEL', inputName: "model", value: props.getValues.model },
+        { label: 'PRICE', inputName: "price", value: props.getValues.price }
     ];
     
     return(
-        <div>{ INPUTS.map(item => {
+        <React.Fragment>{ INPUTS.map(item => {
                 return(
                     <div key={ item.inputName }>
                         <label>{ item.label }: </label>
                         <input type={ item.inputName === 'price' ? "number" : "text" }
                                 name={ item.inputName }
-                                onChange={ e => { props.setValue(null, e ); } }
+                                onChange={ e => { props.setValues(null, e); } }
                                 value = { item.value }
                         />    
                     </div>
@@ -27,17 +27,16 @@ const EnterProductDetails = props => {
                 <label>DESCRIPTION: </label>
                 <textarea 
                     name="description" 
-                    onChange={ (e) => { props.setValue(null, e) } }
-                    value={ props.getValue.description }    
+                    onChange={ (e) => { props.setValues(null, e) } }
+                    value={ props.getValues.description }    
                 />
             </div>
-            <div>
-                <UploadImageFile 
-                    setValue={ props.setValue }
-                    // getValue={ props.getValue.imagePath.name }
-                />
-            </div>
-        </div>);   
+            
+            <UploadImageFile 
+                setValues={ props.setValues }
+                getValues={ props.getValues.imagePath }
+            />
+        </React.Fragment>);   
 }
 
 export default EnterProductDetails;

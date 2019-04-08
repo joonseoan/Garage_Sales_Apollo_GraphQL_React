@@ -1,0 +1,16 @@
+export default [
+    { key: 'CF',
+        value: 'Clothing & Fashion' }, 
+    { key: 'To',
+        value: 'Toys' },
+    { key: 'EL',
+    value: 'Electronics' },
+    { key: 'FU',
+    value: 'Furniture' },
+    { key: 'BO',
+    value: 'Books' },
+    { key: 'CR',
+    value: 'Craft' },
+    { key: 'OT',
+    value: 'Others' },
+];

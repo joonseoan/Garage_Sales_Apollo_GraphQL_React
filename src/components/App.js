@@ -3,7 +3,7 @@ import { Route, BrowserRouter } from 'react-router-dom';
 
 import Header from './Header';
 import AuthForm from './Authentication/AuthForm';
-import SubmitProductForm from './Admin/SubmitProductForm';
+import SubmitProductForm from './ProductAdmin/SubmitProductForm';
 import SampleMap from './Map/SalesMap';
 import RegisterContact from './UserContact/RegisterContact';
 

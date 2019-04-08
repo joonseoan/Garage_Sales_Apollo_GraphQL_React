@@ -2,20 +2,19 @@ import React from 'react';
 
 const UploadImageFile = (props) => {
     //console.log(props.getValue.name)
-
+    // must have css in terms of props.getValues
     return (
-        <React.Fragment>
+        <div>
             <label htmlFor="imageFile" />
             <input 
                 type="file" 
                 name="imagePath" 
                 id="imageFile" 
-                // value={ props.getValue }
-                onChange={ (e) => { props.setValue(null, e) } } 
+                // value={ props.getValues.name }
+                onChange={ (e) => { props.setValues(null, e) } } 
             />
-        </React.Fragment>
+        </div>
     );
-    
 }
 
 export default UploadImageFile;
