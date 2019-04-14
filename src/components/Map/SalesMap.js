@@ -1,7 +1,7 @@
 import React from 'react';
-import getAllCoordinates from '../../queries/getAllCoordinates';
 import { graphql } from 'react-apollo';
 
+import getCoords from '../../queries/getCoords';
 import GoogleMapping from './GoogleMapping';
 
 class SalesMap extends React.PureComponent {
@@ -36,8 +36,6 @@ class SalesMap extends React.PureComponent {
             });
         }
     );
-
-      console.log()
       this.delayedShowMarker()
     };
   
@@ -56,14 +54,14 @@ class SalesMap extends React.PureComponent {
     render() {
       
      if(this.props.data.loading || !this.state.myLocation.lat || !this.state.myLocation.lng ) return <div />;
-      
+      console.log('coords: ', this.props.data.getCoords)
       return (
           <div>
             <GoogleMapping
               myLocation = { this.state.myLocation }
               isMarkerShown = { this.state.isMarkerShown }
               onMarkerClick = { this.handleMarkerClick }
-              coords = { this.props.data.coords }
+              coords = { this.props.data.getCoords }
             />
           </div>
       );
@@ -71,5 +69,5 @@ class SalesMap extends React.PureComponent {
     }
 }
 
-export default graphql(getAllCoordinates)(SalesMap);
+export default graphql(getCoords)(SalesMap);
 // export default SampleMap;

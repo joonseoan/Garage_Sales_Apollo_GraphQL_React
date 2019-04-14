@@ -4,8 +4,8 @@ import { Route, BrowserRouter } from 'react-router-dom';
 import Header from './Header';
 import AuthForm from './Authentication/AuthForm';
 import SubmitProductForm from './ProductAdmin/SubmitProductForm';
-import SampleMap from './Map/SalesMap';
-import RegisterContact from './UserContact/RegisterContact';
+import SalesMap from './Map/SalesMap';
+import CreateContact from './Contact/CreateContact';
 
 const App = () => {
 
@@ -14,22 +14,19 @@ const App = () => {
     return(
         <div>
             <BrowserRouter>
-                <div>
-                    <Header />
-                    { /* <SalesMap coords={ { lat: this.state.lat, lng: this.state.lng } } /> */ }
-
-                    {/* must change it to redux form */}
-                    <Route path="/auth" exact component={ AuthForm } />
-                    <Route path="/productAdmin" exact component = { SubmitProductForm } />
+                <div>    
+                {/* 
+                    <Header />            
+                        // must change it to redux form 
+                        <Route path="/auth" exact component={ AuthForm } />
+                        <Route path="/contact" exact component={ CreateContact } />
+                    */} 
+                    <Route path="/productAdmin" exact component={ SubmitProductForm } />
                 </div>
             </BrowserRouter>
-            
             {/* 
-                <RegisterContact />
-    
-                <SampleMap />
+                <SalesMap />
             */}
-            
         </div>
         
     );

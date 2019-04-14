@@ -1,26 +1,26 @@
 import gql from 'graphql-tag';
 
 export default gql`
-    mutation CreateProduct($category: String, 
-                           $name: String,
-                           $brand: String,
-                           $model: String,
-                           $price: Float,
-                           $description: String
+        mutation CreateProduct( 
+            $category: String!, 
+            $name: String!,
+            $brand: String!,
+            $model: String!,
+            $price: Float!,
+            $description: String!
+            $imagePath: String
     ) {
-        createProduct (
-            categroy: $category,
+        createProduct ( productInput: { 
+            category: $category,
             name: $name,
             brand: $brand,
             model: $model,
             price: $price,
             description: $description
-        ) {
+            imagePath: $imagePath
+        }) {
             name
-            brand
-            model
-            price
-            imagePaths
-        }  
+            description
+        }
     }
 `;

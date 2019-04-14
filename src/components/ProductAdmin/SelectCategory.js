@@ -1,6 +1,6 @@
 import React from 'react';
 
-import productCategories from './productCategories';
+import { productCategories } from '../../utils/inputs/inputAttributes';
 
 const SelectCategory = props => {
 
@@ -10,7 +10,7 @@ const SelectCategory = props => {
             const { key, value } = categoryItem;
             return (
                 <div 
-                    onClick={ () => { props.setValues({ name: "category", value })} } 
+                    onClick={ () => { props.setValues(null, { name: "category", value })} } 
                     key={ key }>
                     { value }
                 </div>

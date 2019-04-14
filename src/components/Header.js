@@ -3,7 +3,7 @@ import { graphql } from 'react-apollo';
 import { Link } from 'react-router-dom';
 
 import mutation from '../mutations/Logout';
-import currentUser from '../queries/currentUser';
+import getCurrentUser from '../queries/getCurrentUser';
 
 class Header extends React.Component {
 
@@ -12,21 +12,20 @@ class Header extends React.Component {
     // not put 'aysnc' funcition 
     handleLogout = (e) => {
         // no return.
-        this.props.mutate({})
+        this.props.mutate()
         .then(() => {
             this.props.data.refetch();         
         })
         .catch(e => {throw new Error ('Failed to Logout'); });
-  
     }
 
     authButtons = () => {
        
-        const { user, loading } = this.props.data;
+        const { getCurrentUser, loading } = this.props.data;
         
         if(loading) return <div />;
       
-        if(user) {    
+        if(getCurrentUser) {    
             return(
                 <div>
                     <li>
@@ -58,6 +57,8 @@ class Header extends React.Component {
         
         // Just because return value shows up together with buttons above.
         if(this.props.data.loading) return <div />
+
+        console.log(this.props)
         
         return(
             <nav>
@@ -73,5 +74,5 @@ class Header extends React.Component {
 }
 
 export default graphql(mutation)(
-    graphql(currentUser)(Header)
+    graphql(getCurrentUser)(Header)
 );

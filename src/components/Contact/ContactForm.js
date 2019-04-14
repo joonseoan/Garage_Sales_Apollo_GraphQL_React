@@ -1,8 +1,29 @@
 import React from 'react';
 
+import { contactInputs } from '../../utils/inputs/inputAttributes';
+import INPUTS from '../../utils/inputs/inputsForm';
+
 export default (props) => {
-    
+
     return(
+        <React.Fragment> {
+            contactInputs.map(contact => {
+                return(
+                    <div key = { contact.inputName }>
+                        <INPUTS
+                            label={ contact.label } 
+                            type="text"
+                            name={ contact.inputName }
+                            setValues={ props.setValues }
+                            value={ props.getValues[contact.inputName] }    
+                        />
+                    </div> 
+                );
+            })
+        }</React.Fragment>
+        
+        /* 
+        
         <div>
             <div>
                 <label>Street Number: </label>
@@ -65,5 +86,6 @@ export default (props) => {
                 />
             </div>
         </div>
+        */
     );
 }

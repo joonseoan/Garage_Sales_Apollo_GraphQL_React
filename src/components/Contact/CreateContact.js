@@ -1,26 +1,19 @@
 import React from 'react';
 import { graphql } from 'react-apollo'
 
-import CreateContact from './CreateContact';
+import ContactForm from './ContactForm';
 import mutation from '../../mutations/CreateContact';
-import currentUser from '../../queries/currentUser';
+import getCurrentUser from '../../queries/getCurrentUser';
 
-class RegisterContact extends React.Component {
+class CreateContact extends React.Component {
 
     state = {
-
         streetNumber: '',
         streetName:'',
         city: '',
         province: '',
-        postalFirst: '',
-        postalSecond:'',
         telephone: '',
         errors: []
-        // user: {
-        //     id: ''
-        // }
-
     };
 
     // Unable to get this.props.data.user!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
@@ -41,37 +34,30 @@ class RegisterContact extends React.Component {
     }
 
     handleOnSubmit = e => {
-
         e.preventDefault();
         this.props.mutate({
-            variables: { contact: { ...this.state, errors: undefined } },
+            variables: { ...this.state, errors: undefined },
         })
-        .then(() => {
-            this.props.data.refetch();
+        .then(res => {
+            console.log(res)
+            // this.props.data.refetch();
         })
         .catch(res => {
             const errors = res.graphQLErrors.map(error => error.message);
             this.setState({ errors });
         });       
-
     }
 
     render() {
 
-        if(this.props.data.loading) return <div />;
-
-        const { user } = this.props.data;
-
-        if(!user) return (<div>
-                <h1>Please, login first.</h1>
-            </div>);
-
+        // if(this.props.data.loading) return <div />;
+        
         return(
             <div>
                 <form onSubmit={ this.handleOnSubmit }>
-                    <CreateContact 
-                        setOnChange = { this.handleOnChange }
-                        getValue = { this.state }
+                    <ContactForm 
+                        setValues = { this.handleOnChange }
+                        getValues = { this.state }
                     />
                     <button type="submit">Register Contact Info</button>
                 </form>
@@ -80,6 +66,8 @@ class RegisterContact extends React.Component {
     }
 }
 
-export default graphql(currentUser)(
-    graphql(mutation)(RegisterContact)
-);
+// export default graphql(currentUser)(
+//     graphql(mutation)(RegisterContact)
+// );
+
+export default graphql(mutation)(CreateContact);
