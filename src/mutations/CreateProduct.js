@@ -7,8 +7,8 @@ export default gql`
             $brand: String!,
             $model: String!,
             $price: Float!,
-            $description: String!
-            $imagePath: String
+            $description: String!,
+            $imagePaths: [String!]!
     ) {
         createProduct ( productInput: { 
             category: $category,
@@ -16,11 +16,20 @@ export default gql`
             brand: $brand,
             model: $model,
             price: $price,
-            description: $description
-            imagePath: $imagePath
+            description: $description,
+            imagePaths: $imagePaths
+            
         }) {
             name
+            brand
+            model
+            price
             description
+            images {
+                imagePaths
+            }
+            imageNumbers
+            createdAt
         }
     }
 `;

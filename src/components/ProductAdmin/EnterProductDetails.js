@@ -2,15 +2,17 @@ import React from 'react';
 
 import { productInputs } from '../../utils/inputs/inputAttributes';
 import INPUTS from '../../utils/inputs/inputsForm';
-import ShowImage from './ShowImage';
+import { ShowImage } from '../../utils/images/imgs';
 import './EnterProductDetails.css';
 
 const EnterProductDetails = props => {
+    
+    let key = 0;
 
     return(
         <React.Fragment>{ productInputs.map(item => {
             let type;
-            if (item.inputName === 'imagePath') {
+            if (item.inputName === 'imagePaths') {
                 type = 'file'
             } else if (item.inputName === 'price') {
                 type = 'number'
@@ -24,17 +26,18 @@ const EnterProductDetails = props => {
                         type={ type }
                         name={ item.inputName }
                         setValues={ props.setValues }
-                        value={ item.inputName === 'imagePath' ? undefined : props.getValues[item.inputName] }
-                        multiple={ item.inputName === 'imagePath' ? true : false }
+                        value={ item.inputName === 'imagePaths' ? undefined : props.getValues[item.inputName] }
+                        multiple={ item.inputName === 'imagePaths' ? true : false }
                     />
                 </div>
             );
             }) }
             <div className="image_space">
-                { !props.getValues.imagePreview && <p>Please choose an image.</p> }
-                {
-                    props.getValues.imagePreview && props.getValues.imagePreview.map(image => {
-                        return  <ShowImage imageUrl={ image } contain /> })
+                { !props.getValues.imagePreviews && <p>Please choose an image.</p> }
+                {   
+                    props.getValues.imagePreviews && 
+                    props.getValues.imagePreviews.map(image =>
+                         <ShowImage key={ key++ } imagePreviews={ image } contain />)
                 }
             </div>
 

@@ -20,7 +20,7 @@ export const productInputs =  [
     { label: 'BRAND', inputName: "brand" },
     { label: 'MODEL', inputName: "model", },
     { label: 'PRICE', inputName: "price" },
-    { label: 'PICTURES', inputName: "imagePath" },
+    { label: 'PICTURES', inputName: "imagePaths" },
 ];
 
 export const contactInputs = [

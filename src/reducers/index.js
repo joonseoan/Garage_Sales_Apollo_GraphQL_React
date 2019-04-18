@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
 
 import authReducer from './authReducer';
+import fetchProductList from './fetchProductList';
 
 export default combineReducers({
-    auth: authReducer
+    auth: authReducer,
+    productList: fetchProductList
 });

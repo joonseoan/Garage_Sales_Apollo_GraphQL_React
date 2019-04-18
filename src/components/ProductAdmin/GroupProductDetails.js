@@ -2,57 +2,31 @@ import React from 'react';
 
 import SelectCategory from './SelectCategory';
 import EnterProductDetails from './EnterProductDetails';
-import { generateBase64FromImage } from '../../utils/imageFile';
 
 const GroupProductDetails = props => {
-
     const onChangeHandler = (e, categoryValue) => {
         if(categoryValue) {
             const { name,  value } = categoryValue;
-            return props.setValues(name, value);
+            props.setValues(name, value);
         } else {
             const { name, value, files } = e.target;
-            if(name === 'imagePath') {
-                // const previews = [];
+            if(name === 'imagePaths') {               
                 if(window.File && window.FileList && window.FileReader) {
-
-                    const imagePaths = Object.values(files);
-        
-
-                    
-                    imagePaths.forEach(path => {
+                    const images = Object.values(files);
+                    props.setValues('imagePaths', [ ...images ]);
+                    images.forEach(image => {
                         const reader = new FileReader();
-                        reader.onloadend = (e) => {
-                            props.setValues('imagePreview', reader.result);
-                            // imagePreviews.concat(e.target.result.toString());
-                            // this.props.setValues()
+                        reader.onloadend = () => {
+                            props.setValues('imagePreviews', reader.result);
                         }
-                        reader.readAsDataURL(path);
+                        reader.readAsDataURL(image);
                     });
-
-
-                    props.setValues("imagePath", imagePaths);
-
-                    // this.props
-
-                    // return generateBase64FromImage(files)
-                    //     .then(b64 => {
-                    //         if(!b64) {
-                    //             throw new Error('Unanble to convert to b64.');
-                    //         }
-                    //         console.log('b64: ', b64);
-                    //         // previews.push(b64);
-                    //         // console.log(previews.length)
-                    //         props.setValues("imagePreview", b64);
-                    //     })
-                    //     .catch(e => {
-                    //         props.setValues("imagePreview", null);
-                    //     });
                 } else {
                     throw new Error('Your browser does not support file API');
                 }
+            } else {
+                props.setValues(name, value);
             }
-            props.setValues(name, value);
         }
     }
 
