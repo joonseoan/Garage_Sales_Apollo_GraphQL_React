@@ -15,19 +15,19 @@ class SubmitProductForm extends React.Component {
         model: '',
         price: '',
         description: '',
-        imagePaths: [],
-        imagePreviews: [],
+        imagePath: [],
+        imagePreview: [],
         errors: []
     }
 
     handleOnSubmit = async e => {
         e.preventDefault();
         try {
-            if(this.state.imagePaths.length > 4) {
+            if(this.state.imagePath.length > 4) {
                 throw new Error ('Maximum number of files are 4');
             }
             const body = new FormData();
-            this.state.imagePaths.forEach(file => {
+            this.state.imagePath.forEach(file => {
                 body.append('productImages', file);
             })
             
@@ -46,14 +46,12 @@ class SubmitProductForm extends React.Component {
                 // }
             });
             if(!response) throw new Error('Unable to upload image files.');
-            console.log('response: ', response);
-            
-            const { imagePreviews, imagePaths, price, errors, ...noA } = this.state;
+            console.log('image response: ', response);
+            const { imagePreview, imagePath, price, errors, ...noA } = this.state;
             this.props.mutate({
                 variables: { 
                     ...noA,
                     price: parseFloat(this.state.price),
-                    // imagePaths: response.data.imagePaths
                     imagePaths: response.data.imagePaths
                 }
             })
@@ -68,8 +66,8 @@ class SubmitProductForm extends React.Component {
     }
 
     setValues = (name, value) => {
-        if(name === 'imagePreviews') {
-            return this.setState({ imagePreviews: [ ...this.state.imagePreviews, value ] });
+        if(name === 'imagePreview') {
+            return this.setState({ imagePreview: [ ...this.state.imagePreview, value ] });
         }
         this.setState({ [name] : value });
     }

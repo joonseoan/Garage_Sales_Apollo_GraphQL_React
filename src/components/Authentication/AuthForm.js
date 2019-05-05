@@ -43,7 +43,7 @@ class AuthForm extends React.Component {
             .catch(res => {
                 const errors = res.graphQLErrors.map(error => error.message);
                 this.setState({ errors });
-            })       
+            });    
         }
 
         // const { email, password } = this.state;
